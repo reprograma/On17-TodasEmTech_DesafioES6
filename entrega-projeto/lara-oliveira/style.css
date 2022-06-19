@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    background-color: bisque;
+}
+
+.caixa-input {
+    display: flex;
+    max-width: 800px;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+}
