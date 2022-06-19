@@ -40,7 +40,7 @@ Neste projeto, você  criará uma aplicação de pesquisa que usa a API GitHub p
     - Descrição
     - Linguagem utilizada
     - Total de estrelas
-- [ ] O usuário deve receber um alerta caso usuário não tenha repositórios públicos  
+- [ ] A página deve exibir um alerta caso o usuário pesquisado não tenha repositórios públicos  
 
 **Exemplo**: 
 <p align="center">
