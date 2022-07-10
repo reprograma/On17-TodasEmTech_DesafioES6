@@ -24,7 +24,7 @@ const getGitHubData = async (user) => {
             divCard.innerHTML = createCard(data);
             //chamar aqui a funcao createRepo, utilizando a mesma logica
         } else {
-            alert("s");
+            alert("esta usuária não existe no github!");
             throw new Error();
         }
     }
@@ -58,8 +58,8 @@ function createCard(user) {
 const createReposList = async(user) => {
 
     const urlRepos = `https://api.github.com/users/${user}/repos`;
-    //fetch//
-    //then//
+    //fetch
+    //then
     //tratamento de erros
     //map
     //para cada item dessa arrayzona de repos que a API me retorna, eu preciso criar um card que tenha x caracteristicas
