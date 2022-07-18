@@ -1,17 +1,18 @@
 * {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: large;
+    font-size: 14px;
 }
 
 .nav-bar {
     display: flex;
     justify-content: space-between;
     background-color: black;
+    height: 20%;
 }
 
 h1 {
     font-size: 30px;
-    padding: 20px;
+    padding: 0 20px;
     color: white;
 }
 
@@ -38,12 +39,6 @@ h1 {
     border-radius: 10px;
 }
 
-#section-card {
-    display: flex;
-    justify-content: center;
-
-}
-
 .img-github {
     border-radius: 10px;
 }
@@ -66,4 +61,33 @@ h1 {
 .footer {
     text-align: center;
     margin-top: 50px;
+}
+
+#div-sections {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 75%;
+}
+
+#section-card {
+    display: flex;
+    justify-content: center;
+    height: 75%;
+}
+
+#section-repositorios {
+    height: 75%;
+    margin: 40px 0 0 100px;
+    width: calc(100% - 440px);
+}
+
+.div-repo {
+    display: inline-block;
+    width: 40%;
+    padding: 0 12px;
+    margin: 10px 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 6px 3px 10px;
 }
