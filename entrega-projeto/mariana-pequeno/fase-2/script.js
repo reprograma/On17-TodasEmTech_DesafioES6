@@ -1,5 +1,3 @@
-//https://api.github.com/users/${user}
-
 const input = document.querySelector(".input");
 const button = document.querySelector(".btn");
 const containerCard = document.querySelector(".container-card");
@@ -25,10 +23,11 @@ button.addEventListener("click", (e) => {
   const userName = input.value.trim();
   if (userName) {
     getGitHubData(userName);
-    createReposList(userName)
+    createReposList(userName);
   } else {
     alert("Digite algum usuário!");
   }
+  
   input.value = "";
 });
 
@@ -40,7 +39,8 @@ const getGitHubData = async (user) => {
       const data = await response.json();
       card1.classList.replace("inativo", "ativo");
       card2.classList.replace("ativo", "inativo");
-      creatElements(data);
+      creatElements(data)
+      
     } else { //user not found test: @0545mml
       // alert("esta usuária não existe no github!");
       card1.classList.replace("ativo", "inativo");
@@ -67,11 +67,13 @@ const createReposList = async (user) => {
   const urlRepos = `https://api.github.com/users/${user}/repos`;
   try{
     const responseRepo = await fetch(urlRepos);
-    if(responseRepo.ok){
-      const dataRepos = await responseRepo.json();
+    const dataRepos = await responseRepo.json();
+
+    if(dataRepos.length > 0){
       cardRepo.classList.replace("inativo", "ativo");
       card2.classList.replace("ativo", "inativo");
       notFoundRepos.classList.replace("ativo", "inativo");
+      
       cardRepos(dataRepos);
     }else{ //User not repos: @Raptor117spect
       cardRepo.classList.replace("ativo", "inativo");

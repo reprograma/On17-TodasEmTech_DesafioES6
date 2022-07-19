@@ -7,7 +7,7 @@ const containerCard = document.querySelector(".container-card");
 const card1 = document.querySelector(".card-1");
 const imgGithubUser = document.querySelector(".img-github");
 const nameUser = document.querySelector(".name");
-const loginUser = document.querySelector(".login");
+let loginUser = document.querySelector(".login");
 const bioUser = document.querySelector(".bio");
 const publicReposUser = document.querySelector(".public-repos");
 const followersUser = document.querySelector(".followers");
@@ -48,10 +48,11 @@ const getGitHubData = async (user) => {
 }
 
 function creatElements(user){
-  const { name, avatar_url, bio, public_repos, login, followers } = user;
+  const { name, avatar_url, bio, public_repos, login, followers, html_url } = user;
   imgGithubUser.src = `${avatar_url}`;
   nameUser.innerText = `${name ? name : ""}`;
-  loginUser.innerText = `${login}`;
+  loginUser.innerHTML = `@${login}`;
+  loginUser.href = `${html_url}`
   bioUser.innerText = `${bio ? bio : ""}`;
   publicReposUser.innerText = `${public_repos}`;
   followersUser.innerText = `${followers}`;
