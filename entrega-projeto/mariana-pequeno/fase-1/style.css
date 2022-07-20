@@ -74,8 +74,14 @@ body{
 }
 
 .login{
+  color: #313131;
   opacity: 0.5;
   font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.login:hover{
+  text-decoration: underline;
 }
 
 .bio{

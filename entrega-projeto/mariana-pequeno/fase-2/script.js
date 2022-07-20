@@ -1,10 +1,9 @@
-//https://api.github.com/users/${user}
-
 const input = document.querySelector(".input");
 const button = document.querySelector(".btn");
 const containerCard = document.querySelector(".container-card");
 
 const card1 = document.querySelector(".card-1");
+const infosProfile = document.querySelector(".infos-profile");
 const imgGithubUser = document.querySelector(".img-github");
 const nameUser = document.querySelector(".name");
 const loginUser = document.querySelector(".login");
@@ -13,7 +12,9 @@ const publicReposUser = document.querySelector(".public-repos");
 const followersUser = document.querySelector(".followers");
 
 const cardRepo = document.querySelector(".card-repos");
+
 const card2 = document.querySelector(".card-2");
+const notFoundUser = document.querySelector(".not-found-profile")
 const title2 = document.querySelector(".title-2");
 const pSearch = document.querySelector(".paragraph-search");
 
@@ -25,27 +26,42 @@ button.addEventListener("click", (e) => {
   const userName = input.value.trim();
   if (userName) {
     getGitHubData(userName);
-    createReposList(userName)
   } else {
     alert("Digite algum usuário!");
   }
+  
   input.value = "";
 });
 
 const getGitHubData = async (user) => {
-  const url = `https://api.github.com/users/${user}`;
+  const urlUser = `https://api.github.com/users/${user}`; //Usuário
+  const urlRepos = `https://api.github.com/users/${user}/repos`; //Repositórios  
   try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      card1.classList.replace("inativo", "ativo");
-      card2.classList.replace("ativo", "inativo");
-      creatElements(data);
-    } else { //user not found test: @0545mml
-      // alert("esta usuária não existe no github!");
+    const responseUser = await fetch(urlUser);
+    const responseRepos = await fetch(urlRepos);
+    const dataUser = await responseUser.json();
+    const dataRepos = await responseRepos.json();
+    if(!dataUser.id){ //user not found test: @0545mml
       card1.classList.replace("ativo", "inativo");
-      card2.classList.replace("inativo","ativo");
-      throw new Error(); 
+      cardRepo.classList.replace("ativo", "inativo")
+      card2.classList.replace("inativo", "ativo");  
+      notFoundUser.classList.replace("inativo", "ativo")
+      notFoundRepos.classList.replace("ativo", "inativo");
+    } else if(!!dataUser.id && dataRepos.length===0){ //User not repos test: @Raptor117spect
+      card1.classList.replace("inativo", "ativo");
+      cardRepo.classList.replace("ativo", "inativo")
+      card2.classList.replace("inativo", "ativo");
+      notFoundUser.classList.replace("ativo", "inativo")
+      notFoundRepos.classList.replace("inativo", "ativo");
+      creatElements(dataUser)
+    } else { 
+      card1.classList.replace("inativo", "ativo");
+      cardRepo.classList.replace("inativo", "ativo");
+      card2.classList.replace("ativo","inativo");
+      notFoundUser.classList.replace("ativo","inativo");
+      notFoundRepos.classList.replace("ativo","inativo");
+      creatElements(dataUser)
+      cardRepos(dataRepos);
     }
   } catch (err) {
     console.error("a requisição não foi bem-sucedida", err);
@@ -53,61 +69,28 @@ const getGitHubData = async (user) => {
 }
 
 function creatElements(user){
-  const { name, avatar_url, bio, public_repos, login, followers } = user;
+  const { name, avatar_url, bio, public_repos, login, followers, html_url } = user;
   imgGithubUser.src = `${avatar_url}`;
   nameUser.innerText = `${name ? name : ""}`;
-  loginUser.innerText = `${login}`;
+  loginUser.innerText = `@${login}`;
+  loginUser.href = `${html_url}`
   bioUser.innerText = `${bio ? bio : ""}`;
   publicReposUser.innerText = `${public_repos}`;
   followersUser.innerText = `${followers}`;
 }
 
-//FASE 2
-const createReposList = async (user) => {
-  const urlRepos = `https://api.github.com/users/${user}/repos`;
-  try{
-    const responseRepo = await fetch(urlRepos);
-    if(responseRepo.ok){
-      const dataRepos = await responseRepo.json();
-      cardRepo.classList.replace("inativo", "ativo");
-      card2.classList.replace("ativo", "inativo");
-      notFoundRepos.classList.replace("ativo", "inativo");
-      cardRepos(dataRepos);
-    }else{ //User not repos: @Raptor117spect
-      cardRepo.classList.replace("ativo", "inativo");
-      card2.classList.replace("inativo","ativo");
-      notFoundRepos.classList.replace("inativo","ativo");
-      throw new Error(); 
-    }
-  } catch(e){
-    console.error(e)
-  }
-};
-
 function cardRepos(user){
+  const containerReposCards = document.querySelector(".container-repos-cards")
   user.map(item => {
-    const repos = document.createElement("div");
-    cardRepo.appendChild(repos);
-    repos.classList.add("repos");
-    const titleRepos = document.createElement("h2");
-    repos.appendChild(titleRepos);
-    titleRepos.classList.add("name-repos");
-    const descriptionRepos = document.createElement("p");
-    repos.appendChild(descriptionRepos);
-    descriptionRepos.classList.add("description-repos");
-    const spansTags = document.createElement("div");
-    repos.appendChild(spansTags);
-    spansTags.classList.add("spans-tags");
-    const language = document.createElement("span");
-    spansTags.appendChild(language);
-    language.classList.add("language");
-    const stars = document.createElement("span");
-    spansTags.appendChild(stars);
-    stars.classList.add("stars");
-
-    titleRepos.innerText = item.name;
-    descriptionRepos.innerText = item.description;
-    language.innerText = item.language;
-    stars.innerText = item.stargazers_count;
+    const {name, description, language, stargazers_count} = item;
+    return containerReposCards.innerHTML += `
+      <div class="repos">
+        <h2 class="name-repos">${name}</h2>
+        <p class="description-repos">${description}</p>
+        <div class="spans-tags">
+          <span class="language">${language}</span>
+          <span class="stars">${stargazers_count}</span>
+        </div>
+      </div>`
   })
 }
