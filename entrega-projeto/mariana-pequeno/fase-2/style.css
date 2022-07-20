@@ -54,16 +54,23 @@ body{
 
 /*MAIN*/
 .container-card{
-  min-height: 80vh;
+  min-height: 70vh;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card-1{
+  display: flex;
 }
 
 .infos-profile{
+  width: 250px;
   padding: 10px;
-  margin-left: 20px;
 }
 
 .container-img-github{
   max-width: 200px;
+  margin: auto;
 }
 
 .img-github{
@@ -74,15 +81,25 @@ body{
 .name{
   color: #EC9B69;
   font-size: 1.5rem;
+  text-align: center;
   margin-top: 12px;
 }
 
 .login{
+  color: #313131;
   opacity: 0.5;
+  text-decoration: none;
+  text-align: center;
   font-size: 0.875rem;
+  display: block;
+}
+
+.login:hover{
+  text-decoration: underline;
 }
 
 .bio{
+  text-align: center;
   padding: 15px 0;
   opacity: 0.5;
 }
@@ -90,6 +107,7 @@ body{
 .container-icons{
   margin-top: 10px;
   display: flex;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -114,6 +132,9 @@ body{
 .card-repos{
   max-width: 1200px;
   padding: 10px;
+}
+
+.container-repos-cards{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -145,14 +166,17 @@ body{
 }
 
 /*CARD-2*/
+.not-found-profile{
+  width: 620px;
+  margin: auto;
+}
+
 .inativo{
   display: none;
 }
 
 .ativo{
   display: flex;
-  justify-content: space-evenly;
-  gap: 30px;
 }
 
 .title-2{
@@ -168,6 +192,11 @@ body{
 
 .img-not-found{
   max-height: 50vh;
+}
+
+.p-not-repos{
+  height: 300px;
+  margin-top: 100px;
 }
 
 /*FOOTER*/
