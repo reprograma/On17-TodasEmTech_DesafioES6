@@ -8,6 +8,7 @@ button.addEventListener("click", (e)=> {
     const userName = input.value.trim();
     if(userName){
         getGitHubData(userName);
+        
     } else {
         alert('digite algum usuário');
     }
@@ -47,9 +48,38 @@ function createCard(user) {
      </div>
    `
 };
+
     
-const createReposList = (user) => {
+const createReposList = async (user) => {
 
     const urlRepos = `https://api.github.com/users/${user}/repos`;
+    const repositories = await response.json();
+    
+    try{
+        repositories.map((cards) => {
+            const content = document.createElement('h3');
+            content.innerText = cards.name;
+            cardRepos.appendChild(content);
+    
+            const repositoriesContainer = document.createElement('div');
+            repositoriesContainer.setAttribute("class", "repositories-container");
+            cardRepos.appendChild(repositoriesContainer);
+    
+            const repoName = document.createElement('h3');
+            repoName.setAttribute("class", "repo-name");
+            repoName.innerText = `${cards.name}`;
+            repositoriesContainer.appendChild(repoName)
+    
+            const description = document.createElement('p')
+            description.setAttribute('class', 'description')
+            description.innerText = cards.description
+            repositoriesContainer.appendChild(description)
+    
+        })
+
+    }
+    catch(error){
+        console.error("Esta usuária não possui repositórios", error)
+    }
 
 }
