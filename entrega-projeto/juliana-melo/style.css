@@ -58,3 +58,9 @@ footer{
 .icone2{
     max-height: 20px;
 }
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
