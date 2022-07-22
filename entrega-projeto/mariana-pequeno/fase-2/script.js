@@ -81,16 +81,34 @@ function creatElements(user){
 
 function cardRepos(user){
   const containerReposCards = document.querySelector(".container-repos-cards")
+
   user.map(item => {
     const {name, description, language, stargazers_count} = item;
-    return containerReposCards.innerHTML += `
-      <div class="repos">
-        <h2 class="name-repos">${name}</h2>
-        <p class="description-repos">${description}</p>
-        <div class="spans-tags">
-          <span class="language">${language}</span>
-          <span class="stars">${stargazers_count}</span>
-        </div>
-      </div>`
+    const repos = document.createElement("div");
+    repos.classList.add("repos");
+
+    const nameRepos = document.createElement("h2");
+    nameRepos.classList.add("name-repos");
+    const descriptionRepos = document.createElement("p");
+    descriptionRepos.classList.add("description-repos");
+    const spanTags = document.createElement("div");
+    spanTags.classList.add("spans-tags");
+    const languageRepos = document.createElement("span");
+    languageRepos.classList.add("language")
+    const stars = document.createElement("span");
+    stars.classList.add("stars");
+
+    nameRepos.innerText = name;
+    descriptionRepos.innerText = description;
+    languageRepos.innerText = language;
+    stars.innerText = stargazers_count;
+
+    repos.appendChild(nameRepos);
+    repos.appendChild(descriptionRepos);
+    repos.appendChild(spanTags);
+    spanTags.appendChild(languageRepos);
+    spanTags.appendChild(stars);
+
+    containerReposCards.appendChild(repos);
   })
 }
